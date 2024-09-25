@@ -30,7 +30,7 @@ public class Employee {
     @GetMapping(path= "/{employeeId}")
     public EmployeeEntity getEmployeeID(@PathVariable Long employeeId){
 
-        return employeeRepository.findById().orElse(null);
+        return employeeRepository.findById(employeeId).orElse(null);
 
         //return new EmployeeDTO(employeeId,"Divay","abc@gmail.com",24, LocalDate.now(),true);
     }
@@ -46,9 +46,9 @@ public class Employee {
 
     @PostMapping(path="/post")
 
-    public EmployeeEntity postEmployee(@RequestBody(required = false) EmployeeDTO employeeDTO){
+    public EmployeeEntity postEmployee(@RequestBody(required = false) EmployeeEntity employeeEntity){
 
-        return employeeRepository.save(employeeDTO);
+        return employeeRepository.save(employeeEntity);
         // return "This is post request";
     }
 
