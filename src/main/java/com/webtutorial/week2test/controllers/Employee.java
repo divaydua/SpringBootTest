@@ -3,6 +3,7 @@ package com.webtutorial.week2test.controllers;
 import com.webtutorial.week2test.DTO.EmployeeDTO;
 import com.webtutorial.week2test.entities.EmployeeEntity;
 import com.webtutorial.week2test.repository.EmployeeRepository;
+import com.webtutorial.week2test.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,34 +22,34 @@ public class Employee {
 //        return "secret message";
 //    }
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public Employee(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public Employee(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping(path= "/{employeeId}")
-    public EmployeeEntity getEmployeeID(@PathVariable Long employeeId){
+    public EmployeeDTO getEmployeeID(@PathVariable Long employeeId){
 
-        return employeeRepository.findById(employeeId).orElse(null);
+        return employeeService.findById(employeeId);
 
         //return new EmployeeDTO(employeeId,"Divay","abc@gmail.com",24, LocalDate.now(),true);
     }
 
     @GetMapping
 
-    public List<EmployeeEntity> getAllEmployee(@RequestParam (required = false)Integer age,
+    public List<EmployeeDTO> getAllEmployee(@RequestParam (required = false)Integer age,
                                @RequestParam (required= false) String sortBy){
 
-        return employeeRepository.findAll();
+        return employeeService.getAllEmployees();
        // return "Hi My name is Divay, my age is "+ age + " "+ sortBy;
     }
 
     @PostMapping(path="/post")
 
-    public EmployeeEntity postEmployee(@RequestBody(required = false) EmployeeEntity employeeEntity){
+    public EmployeeDTO postEmployee(@RequestBody(required = false) EmployeeEntity employeeEntity){
 
-        return employeeRepository.save(employeeEntity);
+        return employeeService.saveEmployee(employeeEntity);
         // return "This is post request";
     }
 
