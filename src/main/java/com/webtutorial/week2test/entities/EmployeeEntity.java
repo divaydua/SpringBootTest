@@ -2,6 +2,7 @@ package com.webtutorial.week2test.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class EmployeeEntity {
 
     private LocalDate joining;
 
+    @JsonProperty("isActive")
     private boolean isActive;
 
 
